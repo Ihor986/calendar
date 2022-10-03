@@ -7,7 +7,7 @@ class OverviewDayDB extends AppDB {
   OverviewDayDB._();
   static final OverviewDayDB instance = OverviewDayDB._();
 
-  Future<List<OverviewDay>?> read(String value) async {
+  Future<List<OverviewDay>?> read(String last, String date, String next) async {
     final Database db = await instance.database;
     const String orderBy = '${TasksFields.date} DESC';
     final res = await db.rawQuery(
@@ -17,9 +17,11 @@ class OverviewDayDB extends AppDB {
         AS ${OverviewDayFields.tasksCount}
         FROM $tasksTable
         WHERE ${TasksFields.date} LIKE ?
+        OR ${TasksFields.date} LIKE ?
+        OR ${TasksFields.date} LIKE ?
         GROUP BY ${TasksFields.date}
         ORDER BY $orderBy''',
-      [value],
+      [last, date, next],
     );
 
     if (res.isEmpty) return null;

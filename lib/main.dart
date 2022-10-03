@@ -1,6 +1,7 @@
 import 'package:calendar/common/app_theme.dart';
-import 'package:calendar/presentation/bloc/main_screen_bloc.dart';
-import 'package:calendar/presentation/screens/main_screen.dart';
+import 'package:calendar/presentation/bloc/day_screen_bloc/day_screen_bloc.dart';
+import 'package:calendar/presentation/bloc/main_screen_bloc/main_screen_bloc.dart';
+import 'package:calendar/presentation/screens/main_screen/main_screen.dart';
 import 'package:calendar/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(DateTime(2022, 8));
     return MultiBlocProvider(
       providers: [
         BlocProvider<MainScreenBloc>(create: (context) => MainScreenBloc()),
+        BlocProvider<DayScreenBloc>(create: (context) => DayScreenBloc()),
       ],
       child: MaterialApp(
         theme: AppThemes.light(),

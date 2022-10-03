@@ -1,58 +1,12 @@
 import 'package:calendar/common/app_colors.dart';
 import 'package:calendar/data/models/overview_day.dart';
-import 'package:calendar/presentation/bloc/main_screen_bloc.dart';
-import 'package:calendar/presentation/widgets/date_picker.dart';
+import 'package:calendar/presentation/bloc/main_screen_bloc/main_screen_bloc.dart';
+import 'package:calendar/presentation/screens/day_screen/day_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
-  static const routeName = '/';
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  void initState() {
-    context.read<MainScreenBloc>().add(GetMonthEvent());
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        centerTitle: true,
-        title: const Text('Tasks'),
-        titleTextStyle: const TextStyle(
-          color: AppColors.blue,
-          fontSize: 24,
-        ),
-        backgroundColor: AppColors.white,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: const [
-              DatePicker(),
-              Spacer(),
-              _CalendarTable(),
-              Spacer(flex: 3),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _CalendarTable extends StatelessWidget {
-  const _CalendarTable({Key? key}) : super(key: key);
+class CalendarTable extends StatelessWidget {
+  const CalendarTable({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +32,7 @@ class _CalendarTable extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: _OverviewDay(
                             day: state.isEmpty
-                                ? OverviewDay(
-                                    date: DateTime.now().toString(),
-                                    tasksCount: 5)
+                                ? OverviewDay(date: DateTime.now().toString())
                                 : state.elementAt(indexW).elementAt(indexD),
                           ),
                         ),
@@ -145,7 +97,13 @@ class _OverviewDay extends StatelessWidget {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            print('date');
+            Navigator.pushNamed(context, DayScreen.routeName,
+                    arguments: day.date)
+                .then(
+              (value) => context.read<MainScreenBloc>().add(
+                    GetMonthEvent(),
+                  ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -153,7 +111,7 @@ class _OverviewDay extends StatelessWidget {
                 Radius.circular(8.0),
               ),
               color: day.date.substring(5, 7) == state
-                  ? AppColors.gray
+                  ? AppColors.halfTransparent
                   : AppColors.white,
             ),
             padding: const EdgeInsets.symmetric(
@@ -163,26 +121,32 @@ class _OverviewDay extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: FittedBox(
+                FittedBox(
+                  child: Center(
                     child: Text(
                       day.date.substring(8, 10),
                       style: day.date.substring(5, 7) == state
-                          ? const TextStyle(fontSize: 16, color: AppColors.text)
+                          ? const TextStyle(
+                              fontSize: 16,
+                              color: AppColors.text,
+                            )
                           : const TextStyle(
-                              fontSize: 16, color: AppColors.blue),
+                              fontSize: 16,
+                              color: AppColors.purple,
+                            ),
                     ),
                   ),
                 ),
                 day.tasksCount > 0
                     ? Align(
                         alignment: Alignment.bottomRight,
-                        child: Text(
-                          day.tasksCount.toString(),
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: AppColors.white,
+                        child: FittedBox(
+                          child: Text(
+                            day.tasksCount.toString(),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: AppColors.red,
+                            ),
                           ),
                         ),
                       )

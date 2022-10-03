@@ -1,27 +1,24 @@
 class TaskModel {
-  final int id;
+  final int? id;
   final String name;
   final String date;
-  final String timeFrom;
-  final String timeTo;
+  final String time;
   final String description;
   final bool isDeleted;
   TaskModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.date,
-    required this.timeFrom,
-    required this.timeTo,
+    required this.time,
     required this.description,
-    required this.isDeleted,
+    this.isDeleted = false,
   });
 
   TaskModel copyWith({
     int? id,
     String? name,
     String? date,
-    String? timeFrom,
-    String? timeTo,
+    String? time,
     String? description,
     bool? isDeleted,
   }) {
@@ -29,8 +26,7 @@ class TaskModel {
       id: id ?? this.id,
       name: name ?? this.name,
       date: date ?? this.date,
-      timeFrom: timeFrom ?? this.timeFrom,
-      timeTo: timeTo ?? this.timeTo,
+      time: time ?? this.time,
       description: description ?? this.description,
       isDeleted: isDeleted ?? this.isDeleted,
     );
@@ -41,8 +37,7 @@ class TaskModel {
       TasksFields.id: id,
       TasksFields.name: name,
       TasksFields.date: date,
-      TasksFields.timeFrom: timeFrom,
-      TasksFields.timeTo: timeTo,
+      TasksFields.time: time,
       TasksFields.description: description,
       TasksFields.isDeleted: isDeleted ? 1 : 0,
     };
@@ -53,16 +48,10 @@ class TaskModel {
       id: map[TasksFields.id] as int,
       name: map[TasksFields.name] as String,
       date: map[TasksFields.date] as String,
-      timeFrom: map[TasksFields.timeFrom] as String,
-      timeTo: map[TasksFields.timeTo] as String,
+      time: map[TasksFields.time] as String,
       description: map[TasksFields.description] as String,
       isDeleted: map[TasksFields.isDeleted] == 1,
     );
-  }
-
-  @override
-  String toString() {
-    return 'TaskModel(id: $id, name: $name, date: $date, timeFrom: $timeFrom, timeTo: $timeTo, description: $description, isDeleted: $isDeleted)';
   }
 }
 
@@ -73,8 +62,7 @@ class TasksFields {
     id,
     name,
     date,
-    timeFrom,
-    timeTo,
+    time,
     description,
     isDeleted,
   ];
@@ -82,8 +70,7 @@ class TasksFields {
   static const String id = '_id';
   static const String name = 'name';
   static const String date = 'date';
-  static const String timeFrom = 'timeFrom';
-  static const String timeTo = 'timeTo';
+  static const String time = 'time';
   static const String description = 'description';
   static const String isDeleted = 'isDeleted';
 }

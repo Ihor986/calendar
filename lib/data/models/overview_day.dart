@@ -7,13 +7,6 @@ class OverviewDay {
   final String date;
   final int tasksCount;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      OverviewDayFields.date: date,
-      OverviewDayFields.tasksCount: tasksCount,
-    };
-  }
-
   factory OverviewDay.fromMap(Map<String, dynamic> map) {
     return OverviewDay(
       date: map[OverviewDayFields.date] as String,

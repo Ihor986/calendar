@@ -1,5 +1,5 @@
 import 'package:calendar/common/app_colors.dart';
-import 'package:calendar/presentation/bloc/main_screen_bloc.dart';
+import 'package:calendar/presentation/bloc/main_screen_bloc/main_screen_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,16 +36,25 @@ class DatePicker extends StatelessWidget {
                   children: [
                     const Icon(
                       Icons.calendar_month,
+                      color: AppColors.text,
                       size: 16,
                     ),
                     const Spacer(),
                     Text(
                       state.months
                           .elementAt(int.parse(state.selectedMonth) - 1),
+                      style: const TextStyle(
+                        color: AppColors.text,
+                        fontSize: 14,
+                      ),
                     ),
                     const Spacer(),
                     Text(
                       state.selectedYear,
+                      style: const TextStyle(
+                        color: AppColors.text,
+                        fontSize: 14,
+                      ),
                     ),
                   ],
                 ),
@@ -101,7 +110,10 @@ class _MonthDec extends StatelessWidget {
       },
       child: const SizedBox(
         width: 30,
-        child: Icon(Icons.arrow_left),
+        child: Icon(
+          Icons.arrow_left,
+          color: AppColors.text,
+        ),
       ),
     );
   }
@@ -145,7 +157,10 @@ class _MonthInc extends StatelessWidget {
       },
       child: const SizedBox(
         width: 30,
-        child: Icon(Icons.arrow_right),
+        child: Icon(
+          Icons.arrow_right,
+          color: AppColors.text,
+        ),
       ),
     );
   }

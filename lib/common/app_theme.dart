@@ -5,10 +5,12 @@ class AppThemes {
   const AppThemes._();
 
   static ThemeData light() {
-    final ThemeData lightTheme = ThemeData(brightness: Brightness.light);
+    final ThemeData lightTheme = ThemeData(
+      brightness: Brightness.light,
+    );
     return lightTheme.copyWith(
       colorScheme: const ColorScheme.light(),
-      scaffoldBackgroundColor: AppColors.gray,
+      scaffoldBackgroundColor: AppColors.white,
     );
   }
 }

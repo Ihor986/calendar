@@ -31,8 +31,7 @@ abstract class AppDB {
       ${TasksFields.id} $idType,
       ${TasksFields.name} $integerType,
       ${TasksFields.date} $textType,
-      ${TasksFields.timeFrom} $textType,
-      ${TasksFields.timeTo} $textType,
+      ${TasksFields.time} $textType,
       ${TasksFields.description} $textType,
       ${TasksFields.isDeleted} $integerType
       )

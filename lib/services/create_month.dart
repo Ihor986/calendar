@@ -12,10 +12,14 @@ class CreateMonth {
 
     DateTime date = getStartDate(yearMonth);
 
-    for (var i = 0; i < 6; i++) {
-      for (var y = 0; y < 7; y++) {
+    for (int i = 0; i < 6; i++) {
+      for (int y = 0; y < 7; y++) {
+        if (date.day == date.add(const Duration(days: 1)).day &&
+            date.month == date.add(const Duration(days: 1)).month) {
+          date = date.add(const Duration(days: 1));
+        }
         date = date.add(const Duration(days: 1));
-        var day = getDay(tasks, date);
+        final OverviewDay day = getDay(tasks, date);
         list.elementAt(i).add(day);
       }
     }

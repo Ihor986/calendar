@@ -1,4 +1,4 @@
-class MonthFormat {
+class TwoDigitFormat {
   String call(String month) {
     if (month.length == 1) {
       return '0$month';
